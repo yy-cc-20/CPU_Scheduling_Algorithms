@@ -1,4 +1,4 @@
-# 3 CPU Scheduling Algorithm
+# 3 CPU Scheduling Algorithms
 ### First come first server (FCFS)
 ### Shortest Process Next (SPN)
 ### Round Robin (RR) with Quantum time = 4
