@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import java.util.*;
 
@@ -120,4 +120,4 @@ public class Main {
 	{
 		System.out.println("Wondering wanna clear screen or not and hard to implement clr screen in java. haizzz. laze");
 	}
-}
+}*/
