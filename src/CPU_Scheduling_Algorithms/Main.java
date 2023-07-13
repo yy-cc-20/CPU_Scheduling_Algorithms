@@ -23,8 +23,35 @@ public class Main {
 			System.out.println(Process[i].getName() + "\t\t" + Process[i].getArrivalTime() + "\t\t\t " + Process[i].getServiceTime());
 			TotalServiceTime += Process[i].getServiceTime();
 		}
+		boolean exit = false;
+		while (!exit) 
+		{
+			System.out.println("Menu :");
+			System.out.println("1. Demostrate for the schduling");
+			System.out.println("2. Calculation for Waiting and Turnaround Time");
+			System.out.println("3. Exit");
+			System.out.print("Your Choice: ");
+			int choice = Integer.parseInt(sc.nextLine());
+			
+			switch(choice) 
+			{
+				case 1:
+					Demostration(TotalServiceTime);
+					break;
+				case 2: 
+					//calculation;
+					break;
+				case 3:
+					exit = true;
+					break;
+			}
+		}
 		sc.close();
-		
+		clearScreen();
+		System.out.println("The End..");
+	}
+	
+	public static void Demostration(int TotalServiceTime){
 		for (int i = 1; i <= TotalServiceTime; i++) 
 		{
 			System.out.println("Current second: " +i);
@@ -33,6 +60,7 @@ public class Main {
 			System.out.print("\nExecuting: "); Executing(i);
 			System.out.print("\n");
 			oneSecondPass();
+			//clearScreen();
 		}
 	}
 	
@@ -90,12 +118,6 @@ public class Main {
 	
 	public static void clearScreen() 
 	{
-		try
-		{	
-			new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
-		}catch(Exception E)
-			{
-				System.out.println(E);
-			}
+		System.out.println("Wondering wanna clear screen or not and hard to implement clr screen in java. haizzz. laze");
 	}
 }
