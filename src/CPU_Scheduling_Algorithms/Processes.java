@@ -27,83 +27,130 @@ public class Processes {
 		System.out.println();
 	}
 	
+	// Time complexity: O(n), Space complexity: O(n)
 	public static void firstComeFirstServe(Process[] processes, int size, final int MAX_COMPLETION_TIME) {
+		TreeSet<Process> readyQueue = new TreeSet<Process>(new ArrivalTimeComparator()); // Self-balancing binary search tree
+		
 		System.out.println("First Come First Serve");
 		
-		// 1. Rearrange the processes by arrival time
+		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator());
 		
-		// 2. Display the gantt chart
+		// Display the gantt chart
 		System.out.println("Gantt Chart");
 		for (int i = 0; i < MAX_COMPLETION_TIME; ++i)
 			System.out.print(i + "\t");
 		System.out.println();
 		
-		int currentTime = 0;
-		for (Process process : processes) {
-			while (true) {
-				if (process.getArrivalTime() <= currentTime) {
-					// The process has arrived, execute the process
-					for (int j = 0; j < process.getServiceTime(); ++j) {
-						System.out.print(process.getName() + "\t");
-						currentTime++;
-					}
-					// Calculate completion time
-					process.setCompletionTime(currentTime); // This function will automatically calculate turnaround time and waiting time
+		Process firstProcess = null;
+		for (int currentTime = 0, i = 0, j = 0; true; ++currentTime) {
+			// 1. A new process has arrived, put the process in the ready queue
+			if (processes[i].getArrivalTime() == currentTime) {
+				readyQueue.add(processes[i]);
+				
+				// If there are processes that have not arrived yet
+				if (processes.length > i + 1)
+					i++;
+			}
+				
+			// 2. Take out the first arrived process from the ready queue
+			if (firstProcess == null) {
+				firstProcess = readyQueue.pollFirst(); // Return null 
+
+				// 6. If all the processes have arrived in the ready queue, and the processes in the ready queue all have been executed
+				if (processes.length == i + 1 && firstProcess == null)
 					break;
-				} else {
-					// Wait for the arrival of next process
-					currentTime++;
-				}		
-			}		
+				
+				// If no process in the readyQueue and the next process has not arrived yet
+				else if (firstProcess == null) {
+					System.out.print(" \t");
+					continue;
+				}
+					
+				// 3. Calculate the completion time of this process
+				firstProcess.setCompletionTime(currentTime + firstProcess.getServiceTime()); // This function will automatically calculate turnaround time and waiting time
+			}
+				 
+			
+			// 4. Execute this process
+			if (firstProcess.getCompletionTime() > currentTime) {
+				System.out.print(firstProcess.getName() + "\t");
+				
+				// 5. Finish the execution of this process
+				if (firstProcess.getCompletionTime() - 1 == currentTime) {
+					firstProcess = null;
+					j++;
+				}
+			}
 		}
+		
 		System.out.println();
 		
-		// 3. Display the average turnaround time and waiting time
+		// Display the average turnaround time and waiting time
 		displayAverageTurnaroundTimeAndWaitingTime(processes, processes.length);
 	}
 	
+	// Time complexity: O(n), Space complexity: O(n)
 	public static void shortestProcessFirst(Process[] processes, int size, final int MAX_COMPLETION_TIME) {
 		TreeSet<Process> readyQueue = new TreeSet<Process>(new ServiceTimeComparator()); // Self-balancing binary search tree
+		Process[] executedProcesses = new Process[5];
 		
 		System.out.println("Shortest Process First");
 		
-		// 1. Rearrange the processes by arrival time
+		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator());
 		
-		// 2. Display the gantt chart
+		// Display the gantt chart
 		System.out.println("Gantt Chart");
 		for (int i = 0; i < MAX_COMPLETION_TIME; ++i)
 			System.out.print(i + "\t");
 		System.out.println();
 		
-		int currentTime = 0;
 		Process shortestProcess = null;
-		for (Process process : processes) {
-			while (true) {
-				if (process.getArrivalTime() <= currentTime) {
-					// The process has arrived
-					readyQueue.add(process);
-					
-					// Execute the shortest process in the ready queue
-					shortestProcess = readyQueue.pollFirst(); // Get the shortest process in the ready queue
-					for (int j = 0; j < shortestProcess.getServiceTime(); ++j) {
-						System.out.print(shortestProcess.getName() + "\t");
-						currentTime++;
-					}
-					// Calculate completion time
-					shortestProcess.setCompletionTime(currentTime); // This function will automatically calculate turnaround time and waiting time
+		for (int currentTime = 0, i = 0, j = 0; true; ++currentTime) {
+			// 1. A new process has arrived, put the process in the ready queue
+			if (processes[i].getArrivalTime() == currentTime) {
+				readyQueue.add(processes[i]);
+				
+				// If there are processes that have not arrived yet
+				if (processes.length > i + 1)
+					i++;
+			}
+				
+			// 2. Take out the shortest process from the ready queue
+			if (shortestProcess == null) {
+				shortestProcess = readyQueue.pollFirst(); // Return null if nothing in the readyQueue
+
+				// 6. If all the processes have arrived in the ready queue, and the processes in the ready queue all have been executed
+				if (processes.length == i + 1 && shortestProcess == null)
 					break;
-				} else {
-					// Wait for the arrival of next process
-					currentTime++;
-				}		
-			}		
+				
+				// If no process in the readyQueue and the next process has not arrived yet
+				else if (shortestProcess == null) {
+					System.out.print(" \t");
+					continue;
+				}
+				
+				// 3. Calculate the completion time of this process
+				shortestProcess.setCompletionTime(currentTime + shortestProcess.getServiceTime()); // This function will automatically calculate turnaround time and waiting time
+			}
+				 
+			// 4. Execute this process
+			if (shortestProcess.getCompletionTime() > currentTime) {
+				System.out.print(shortestProcess.getName() + "\t");
+				
+				// 5. Finish the execution of this process
+				if (shortestProcess.getCompletionTime() - 1 == currentTime) {
+					executedProcesses[j] = shortestProcess;
+					shortestProcess = null;
+					j++;
+				}
+			}
 		}
 		System.out.println();
 		
-		// 3. Display the average turnaround time and waiting time
-		displayAverageTurnaroundTimeAndWaitingTime(processes, processes.length);
+		// Display the average turnaround time and waiting time
+		displayAverageTurnaroundTimeAndWaitingTime(executedProcesses, executedProcesses.length);
 	}
 	
 	public static void roundRobbin(Process[] processes, int size, final int MAX_COMPLETION_TIME, final int QUANTUM_TIME) {
