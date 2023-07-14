@@ -17,13 +17,15 @@ public class CPU_Scheduling_Algorithms {
 		new Process('E', 9, 4)
 	};
 	
-	private static final int MAX_COMPLETION_TIME = 30;
+	private static final int MAX_COMPLETION_TIME = 25;
 	
 	private static final int QUANTUM_TIME = 4;
 	
 	public static void main(String... args) {
-		
-		System.out.printf("%nCPU Scheduling Algorithms%n");
+		System.out.println("===============================");
+		System.out.println("CPU Scheduling Algorithms");
+		System.out.println("===============================");
+		System.out.println();
 		
 		Processes.displayProcesses(processes);
 		
