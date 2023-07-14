@@ -4,17 +4,21 @@ import java.util.Comparator;
 
 public class Process {
 	private char name;
+	
+	// in ms
 	private int arrivalTime;
 	private int serviceTime;
 	private int completionTime;
 	private int turnaroundTime;
 	private int waitingTime;
+	private int remainingServiceTime;
 	
 	public Process(char name, int arrival, int service)
 	{
 		setName(name);
 		setArrivalTime(arrival);
 		setServiceTime(service);
+		setRemainingServiceTime(service);
 	}
 	
 	public char getName()
@@ -50,6 +54,10 @@ public class Process {
 		return waitingTime;
 	}
 	
+	public int getRemainingServiceTime() {
+		return remainingServiceTime;
+	}
+	
 	private void setName(char name)
 	{
 		if ((name >= 'A' && name <= 'Z') || (name >= 'a' && name <= 'z'))
@@ -82,6 +90,12 @@ public class Process {
 		this.turnaroundTime = completionTime - arrivalTime;
 		this.waitingTime = turnaroundTime - serviceTime;
 	}
+	
+	public void setRemainingServiceTime(int remainingService) {
+		if (remainingService < 0 || remainingService > this.serviceTime)
+			throw new IllegalArgumentException();
+		this.remainingServiceTime = remainingService;
+	}
 }
 
 class ArrivalTimeComparator implements Comparator<Process> {
@@ -96,7 +110,7 @@ class ArrivalTimeComparator implements Comparator<Process> {
 			else if (p1.getServiceTime() < p2.getServiceTime())
 				return -1;
 			else
-				return 1;
+				return 0;
 		} 
 	}
 }
@@ -113,7 +127,7 @@ class ServiceTimeComparator implements Comparator<Process> {
 			else if (p1.getArrivalTime() < p2.getArrivalTime())
 				return -1;
 			else 
-				return 1;
+				return 0;
 		} 
 	}
 }
