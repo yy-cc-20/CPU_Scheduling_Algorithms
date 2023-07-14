@@ -17,7 +17,7 @@ public class Main {
 		new Process('E', 9, 4)
 	};
 	
-	private static final int MAX_COMPLETION_TIME = 20;
+	private static final int MAX_COMPLETION_TIME = 21;
 	
 	private static final int QUANTUM_TIME = 4;
 	

@@ -65,7 +65,7 @@ public class Processes {
 		System.out.println();
 		
 		// Execution order of the processes
-		System.out.print("Execute\t");
+		System.out.print("Execute\t\t");
 		Process firstProcess = null;
 		for (int currentTime = 0, i = 0, j = 0; true; ++currentTime) {
 			// 1. A new process has arrived, put the process in the ready queue
@@ -151,7 +151,7 @@ public class Processes {
 		System.out.println();
 		
 		// Execution order of the processes
-		System.out.print("Execute\t");
+		System.out.print("Execute\t\t");
 		Process shortestProcess = null;
 		for (int currentTime = 0, i = 0, j = 0; true; ++currentTime) {
 			// 1. A new process has arrived, put the process in the ready queue
@@ -236,7 +236,7 @@ public class Processes {
 		System.out.println();
 		
 		// Execution order of the processes
-		System.out.print("Execute\t");
+		System.out.print("Execute\t\t");
 		Process currentProcess = null;
 		int remainingQuantumTime = QUANTUM_TIME;
 		for (int currentTime = 0, i = 0, j = 0; true; ++currentTime) {
