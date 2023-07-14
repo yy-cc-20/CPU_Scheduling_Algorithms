@@ -8,8 +8,8 @@ import java.util.TreeSet;
 // Utility class for Process
 public class Processes {
 	private static void displayAverageTurnaroundTimeAndWaitingTime(Process[] processes, int size) {
-		int totalTurnaroundTime = 0;
-		int totalWaitingTime = 0;
+		double totalTurnaroundTime = 0;
+		double totalWaitingTime = 0;
 		System.out.println("Process\tTurnaround Time (ms)\tWaiting Time (ms)");
 		for (Process process: processes) {
 			System.out.println(process.getName() + "\t" + process.getTurnaourndTime() + "\t\t\t" + process.getWaitingTime());
