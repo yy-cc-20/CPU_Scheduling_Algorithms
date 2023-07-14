@@ -82,27 +82,6 @@ public class Process {
 		this.turnaroundTime = completionTime - arrivalTime;
 		this.waitingTime = turnaroundTime - serviceTime;
 	}
-	
-	public static void displayAverageTurnaroundTimeAndWaitingTime(Process[] processes, int size) {
-		int totalTurnaroundTime = 0;
-		int totalWaitingTime = 0;
-		System.out.println("Process\tTurnaround Time (ms)\tWaiting Time");
-		for (Process process: processes) {
-			System.out.println(process.getName() + "\t" + process.getTurnaourndTime() + "\t\t\t" + process.getWaitingTime());
-			totalTurnaroundTime += process.getTurnaourndTime();
-			totalWaitingTime += process.getWaitingTime();
-		}
-		System.out.println("Average turnaround time: " + totalTurnaroundTime / size + "ms");
-		System.out.println("Average waiting time: " + totalWaitingTime / size + "ms");
-	}
-	
-	public static void displayProcesses(Process[] processes) {
-		System.out.println("Process\tArrival Time (ms)\tService Time (ms)");
-		for (Process process: processes) {
-			System.out.println(process.getName() + "\t" + process.getArrivalTime() + "\t\t\t" + process.getServiceTime());
-		}
-		System.out.println();
-	}
 }
 
 class ArrivalTimeComparator implements Comparator<Process> {
@@ -135,7 +114,6 @@ class ServiceTimeComparator implements Comparator<Process> {
 				return -1;
 			else 
 				return 1;
-			
 		} 
 	}
 }
