@@ -29,7 +29,7 @@ public class Processes {
 		System.out.println();
 	}
 	
-	// Time complexity: O(n), Space complexity: O(n)
+	// Time complexity: O(n log n), Space complexity: O(n)
 	public static void firstComeFirstServe(Process[] processes, int size, final int MAX_COMPLETION_TIME) {
 		TreeSet<Process> readyQueue = new TreeSet<Process>(new ArrivalTimeComparator()); // Self-balancing binary search tree
 		
@@ -38,7 +38,7 @@ public class Processes {
 		System.out.println("---------------------------");
 		
 		// 0. Rearrange the processes by arrival time
-		Arrays.sort(processes, new ArrivalTimeComparator());
+		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 		
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
@@ -114,7 +114,7 @@ public class Processes {
 		displayAverageTurnaroundTimeAndWaitingTime(processes, processes.length);
 	}
 	
-	// Time complexity: O(n), Space complexity: O(n)
+	// Time complexity: O(n log n), Space complexity: O(n)
 	public static void shortestProcessFirst(Process[] processes, int size, final int MAX_COMPLETION_TIME) {
 		TreeSet<Process> readyQueue = new TreeSet<Process>(new ServiceTimeComparator()); // Self-balancing binary search tree
 		Process[] executedProcesses = new Process[5];
@@ -124,7 +124,7 @@ public class Processes {
 		System.out.println("---------------------------");
 		
 		// 0. Rearrange the processes by arrival time
-		Arrays.sort(processes, new ArrivalTimeComparator());
+		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 		
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
@@ -200,6 +200,7 @@ public class Processes {
 		displayAverageTurnaroundTimeAndWaitingTime(executedProcesses, executedProcesses.length);
 	}
 	
+	// Time complexity: O(n log n), space complexity: O(n)
 	public static void roundRobbin(Process[] processes, int size, final int MAX_COMPLETION_TIME, final int QUANTUM_TIME) {
 		Queue<Process> readyQueue = new LinkedList<Process>(); // First-in-first-out queue
 		Process[] executedProcesses = new Process[5];
@@ -209,7 +210,7 @@ public class Processes {
 		System.out.println("---------------------------");
 		
 		// 0. Rearrange the processes by arrival time
-		Arrays.sort(processes, new ArrivalTimeComparator());
+		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 		
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
