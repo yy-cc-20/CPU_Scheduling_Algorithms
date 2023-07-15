@@ -275,7 +275,7 @@ public class Processes {
 				// 4a. Finish the execution of this process
 				if (currentProcess.getRemainingServiceTime() == 0) {
 					// 5. Calculate the completion time of this process
-					currentProcess.setCompletionTime(currentTime); // This function will automatically calculate turnaround time and waiting time
+					currentProcess.setCompletionTime(currentTime + 1); // This function will automatically calculate turnaround time and waiting time
 
 					executedProcesses[j] = currentProcess;
 					currentProcess = null;
