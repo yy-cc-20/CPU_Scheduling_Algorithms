@@ -21,6 +21,13 @@ public class Process {
 		setRemainingServiceTime(service);
 	}
 	
+	public Process(Process process) {
+		setName(process.name);
+		setArrivalTime(process.arrivalTime);
+		setServiceTime(process.serviceTime);
+		setRemainingServiceTime(process.remainingServiceTime);
+	}
+	
 	public char getName()
 	{
 		return name;
@@ -91,10 +98,16 @@ public class Process {
 		this.waitingTime = turnaroundTime - serviceTime;
 	}
 	
-	public void setRemainingServiceTime(int remainingService) {
+	private void setRemainingServiceTime(int remainingService) {
 		if (remainingService < 0 || remainingService > this.serviceTime)
 			throw new IllegalArgumentException();
 		this.remainingServiceTime = remainingService;
+	}
+	
+	public void reduceRemainingServiceTime(int reduceBy) {
+		if (this.remainingServiceTime - reduceBy < 0 || this.remainingServiceTime - reduceBy > this.serviceTime)
+			throw new IllegalArgumentException();
+		this.remainingServiceTime -= reduceBy;
 	}
 }
 

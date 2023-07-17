@@ -7,6 +7,8 @@
 
 package CPU_Scheduling_Algorithms;
 
+import java.util.Scanner;
+
 public class Main {
 	// Choose to use array because we need random access, but do no need insertion and deletion
 	private static Process[] processes = new Process[] {
@@ -21,6 +23,15 @@ public class Main {
 	
 	private static final int QUANTUM_TIME = 4;
 	
+	public static final int SCREEN_HEIGHT = 40;
+	public static final Scanner scanner = new Scanner(System.in);
+	
+	public static void clearScreen() {
+		Main.scanner.nextLine();
+		for (int i = 0; i < Main.SCREEN_HEIGHT; ++i)
+			System.out.println();
+	}
+	
 	public static void main(String... args) {
 		System.out.println("===============================");
 		System.out.println("CPU Scheduling Algorithms");
@@ -28,11 +39,20 @@ public class Main {
 		System.out.println();
 		
 		Processes.displayProcesses(processes);
+		System.out.println("Press [ENTER] to continue.");
 		
-		Processes.firstComeFirstServe(processes, processes.length, MAX_COMPLETION_TIME);		
-			
-		Processes.shortestProcessFirst(processes, processes.length, MAX_COMPLETION_TIME);
+		Processes.firstComeFirstServeStimulation(processes, processes.length, MAX_COMPLETION_TIME);		
+		Processes.firstComeFirstServeSummary(processes, processes.length, MAX_COMPLETION_TIME);		
+		Main.clearScreen();
 		
-		Processes.roundRobbin(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
+		Processes.shortestProcessFirstStimulation(processes, processes.length, MAX_COMPLETION_TIME);
+		Processes.shortestProcessFirstSummary(processes, processes.length, MAX_COMPLETION_TIME);
+		Main.clearScreen();
+		
+		//Processes.roundRobbinStimulation(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
+		Processes.roundRobbinSummary(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
+		Main.clearScreen();
+		
+		scanner.close();
 	}
 }
