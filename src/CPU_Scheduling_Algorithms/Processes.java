@@ -62,7 +62,7 @@ public class Processes {
 			
 			// Arrival time of the processes
 			System.out.print("Arrive\t");
-			for (int currentTime = 0, i = 0; currentTime <= k; ++currentTime) {
+			for (int currentTime = 0, i = 0; currentTime <= k + 1; ++currentTime) {
 				// A new process has arrived
 				if (processes[i].getArrivalTime() == currentTime) {
 					System.out.print(processes[i].getName() + "\t");
@@ -238,7 +238,7 @@ public class Processes {
 			
 			// Arrival time of the processes
 			System.out.print("Arrive\t");
-			for (int currentTime = 0, i = 0; currentTime <= k; ++currentTime) {
+			for (int currentTime = 0, i = 0; currentTime <= k + 1; ++currentTime) {
 				// A new process has arrived
 				if (processes[i].getArrivalTime() == currentTime) {
 					System.out.print(processes[i].getName() + "\t");
