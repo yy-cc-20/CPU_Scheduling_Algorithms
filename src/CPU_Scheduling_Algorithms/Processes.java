@@ -91,12 +91,12 @@ public class Processes {
 					continue;
 				}
 					
-				// 3. Calculate the completion time of this process
+				// 3. Calculate the completion time of this process when start executing the process
 				firstProcess.setCompletionTime(currentTime + firstProcess.getServiceTime()); // This function will automatically calculate turnaround time and waiting time
 			}
 				 
 			
-			// 4. Execute this process
+			// 4. Execute this process until it finishes
 			if (firstProcess.getCompletionTime() > currentTime) {
 				System.out.print(firstProcess.getName() + "\t");
 				
@@ -177,11 +177,11 @@ public class Processes {
 					continue;
 				}
 				
-				// 3. Calculate the completion time of this process
+				// 3. Calculate the completion time of this process when start executing the process
 				shortestProcess.setCompletionTime(currentTime + shortestProcess.getServiceTime()); // This function will automatically calculate turnaround time and waiting time
 			}
 				 
-			// 4. Execute this process
+			// 4. Execute this process until it finishes
 			if (shortestProcess.getCompletionTime() > currentTime) {
 				System.out.print(shortestProcess.getName() + "\t");
 				
@@ -201,6 +201,8 @@ public class Processes {
 	}
 	
 	// Time complexity: O(n log n), space complexity: O(n)
+	// May need to wait for longer time to finish execution, when the interrupted process is put at the end of the queue 
+	// and need to wait for other processes to be executed (starvation)
 	public static void roundRobbin(Process[] processes, int size, final int MAX_COMPLETION_TIME, final int QUANTUM_TIME) {
 		Queue<Process> readyQueue = new LinkedList<Process>(); // First-in-first-out queue
 		Process[] executedProcesses = new Process[5];
@@ -266,7 +268,7 @@ public class Processes {
 				}
 			}
 				 
-			// 3. Execute this process
+			// 3. Execute this process for x quantum time or until it finishes
 			if (currentProcess.getRemainingServiceTime() > 0 && remainingQuantumTime > 0) {
 				System.out.print(currentProcess.getName() + "\t");
 				currentProcess.setRemainingServiceTime(currentProcess.getRemainingServiceTime() - 1);
@@ -274,7 +276,7 @@ public class Processes {
 				
 				// 4a. Finish the execution of this process
 				if (currentProcess.getRemainingServiceTime() == 0) {
-					// 5. Calculate the completion time of this process
+					// 5. Calculate the completion time of this process when it completes
 					currentProcess.setCompletionTime(currentTime + 1); // This function will automatically calculate turnaround time and waiting time
 
 					executedProcesses[j] = currentProcess;
