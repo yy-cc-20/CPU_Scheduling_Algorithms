@@ -41,15 +41,15 @@ public class Main {
 		Processes.displayProcesses(processes);
 		System.out.println("Press [ENTER] to continue.");
 		
-		Processes.firstComeFirstServeStimulation(processes, processes.length, MAX_COMPLETION_TIME);		
-		Processes.firstComeFirstServeSummary(processes, processes.length, MAX_COMPLETION_TIME);		
-		Main.clearScreen();
+		//Processes.firstComeFirstServeStimulation(processes, processes.length, MAX_COMPLETION_TIME);		
+		//Processes.firstComeFirstServeSummary(processes, processes.length, MAX_COMPLETION_TIME);		
+		//Main.clearScreen();
 		
-		Processes.shortestProcessFirstStimulation(processes, processes.length, MAX_COMPLETION_TIME);
-		Processes.shortestProcessFirstSummary(processes, processes.length, MAX_COMPLETION_TIME);
-		Main.clearScreen();
+		//Processes.shortestProcessFirstStimulation(processes, processes.length, MAX_COMPLETION_TIME);
+		//Processes.shortestProcessFirstSummary(processes, processes.length, MAX_COMPLETION_TIME);
+		//Main.clearScreen();
 		
-		//Processes.roundRobbinStimulation(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
+		Processes.roundRobbinStimulation(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
 		Processes.roundRobbinSummary(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
 		Main.clearScreen();
 		

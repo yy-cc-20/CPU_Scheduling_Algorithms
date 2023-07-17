@@ -394,15 +394,9 @@ public class Processes {
 		// Display the average turnaround time and waiting time
 		displayAverageTurnaroundTimeAndWaitingTime(executedProcesses, executedProcesses.length);
 	}
+	
 
 	public static void roundRobbinStimulation(Process[] processes, int size, final int MAX_COMPLETION_TIME, final int QUANTUM_TIME) {
-		Queue<Process> readyQueue = new LinkedList<Process>(); // First-in-first-out queue
-		Process[] executedProcesses = new Process[size];
-		Process currentProcess = null;
-		int currentProcessRemainingServiceTime = 0;
-		final int TIME_UNIT = 1;
-		int remainingQuantumTime = QUANTUM_TIME;
-		
 		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 
@@ -414,13 +408,13 @@ public class Processes {
 			// Display the gantt chart
 			System.out.println("Gantt Chart");
 			System.out.print("Time\t");
-			for (int i = 0; i <= k; i++)
+			for (int i = 0; i <= k + 1; i++)
 				System.out.print(i + "\t");
 			System.out.println();
 			
 			// Arrival time of the processes
 			System.out.print("Arrive\t");
-			for (int currentTime = 0, i = 0; currentTime < k; ++currentTime) {
+			for (int currentTime = 0, i = 0; currentTime <= k; ++currentTime) {
 				// A new process has arrived
 				if (processes[i].getArrivalTime() == currentTime) {
 					System.out.print(processes[i].getName() + "\t");
@@ -437,16 +431,22 @@ public class Processes {
 			
 			// Execution order of the processes
 			System.out.print("Execute\t\t");
-			readyQueue = new LinkedList<Process>(); // First-in-first-out queue
-			executedProcesses = new Process[size];
-			currentProcess = null;
-			currentProcessRemainingServiceTime = 0;
-			remainingQuantumTime = QUANTUM_TIME;
+			Queue<Process> readyQueue = new LinkedList<Process>(); // First-in-first-out queue
+			Process currentProcess = null;
+			final int TIME_UNIT = 1;
+			int remainingQuantumTime = QUANTUM_TIME;
+			char processName = '?';
+			int processRemainingServiceTime = 0;
 			
-			for (int currentTime = 0, i = 0, j = 0; currentTime < k; ++currentTime) {
+			for (int currentTime = 0, i = 0, j = 0; currentTime <= k; ++currentTime) {
 				// 1. A new process has arrived, put the process in the ready queue
 				if (processes[i].getArrivalTime() == currentTime) {
-					readyQueue.add(processes[i]);
+					try {
+						readyQueue.add((Process) processes[i].clone());
+					} catch (CloneNotSupportedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					// If there are processes that have not arrived yet
 					if (processes.length > i + 1)
@@ -469,31 +469,33 @@ public class Processes {
 					continue;
 				}
 					 
-				// 3. Execute this process for x quantum time or until it finishes
-				System.out.print(currentProcess.getName() + "\t");
-				currentProcess.reduceRemainingServiceTime(TIME_UNIT);
-				currentProcessRemainingServiceTime = currentProcess.getRemainingServiceTime();
-				remainingQuantumTime -= TIME_UNIT;
-				
-				// 4a. Finish the execution of this process
-				if (currentProcess.getRemainingServiceTime() == 0) {
-					// 5. Calculate the completion time of this process when it completes
-					currentProcess.setCompletionTime(currentTime + 1); // This function will automatically calculate turnaround time and waiting time
-					executedProcesses[j] = currentProcess;
-					currentProcess = null;
-					j++;
-				}
-				// 4b. Interrupt the execution of this process and put it at the end of the readyQueue
-				else if (remainingQuantumTime == 0) {
-					readyQueue.add(currentProcess);
-					currentProcess = null;
+				if (currentProcess.getRemainingServiceTime() > 0 && remainingQuantumTime > 0) {
+					// 3. Execute this process for x quantum time or until it finishes
+					System.out.print(currentProcess.getName() + "\t");
+					currentProcess.reduceRemainingServiceTime(TIME_UNIT);
+					remainingQuantumTime -= TIME_UNIT;
+					
+					processName = currentProcess.getName();
+					processRemainingServiceTime = currentProcess.getRemainingServiceTime();
+					
+					// 4a. Finish the execution of this process
+					if (currentProcess.getRemainingServiceTime() == 0) {
+						// 5. Calculate the completion time of this process when it completes
+						currentProcess.setCompletionTime(currentTime + 1); // This function will automatically calculate turnaround time and waiting time
+						currentProcess = null;
+					}
+					// 4b. Interrupt the execution of this process and put it at the end of the readyQueue
+					else if (remainingQuantumTime == 0) {
+						readyQueue.add(currentProcess);
+						currentProcess = null;
+					}
 				}
 			}
 			System.out.println();
+			System.out.println(processName + "(" + (processRemainingServiceTime) + ")");
 			displayQueueElementsWithRemainingServiceTime(readyQueue);
 			System.out.println("Remaining quantum time: " + remainingQuantumTime);
-			System.out.println("Current process remaining service time: " + currentProcessRemainingServiceTime);
-			System.out.println();
+			Main.clearScreen();
 		}
 	}
 	

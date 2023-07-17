@@ -13,19 +13,16 @@ public class Process {
 	private int waitingTime;
 	private int remainingServiceTime;
 	
+	private Process() 
+	{
+	}
+	
 	public Process(char name, int arrival, int service)
 	{
 		setName(name);
 		setArrivalTime(arrival);
 		setServiceTime(service);
 		setRemainingServiceTime(service);
-	}
-	
-	public Process(Process process) {
-		setName(process.name);
-		setArrivalTime(process.arrivalTime);
-		setServiceTime(process.serviceTime);
-		setRemainingServiceTime(process.remainingServiceTime);
 	}
 	
 	public char getName()
@@ -108,6 +105,17 @@ public class Process {
 		if (this.remainingServiceTime - reduceBy < 0 || this.remainingServiceTime - reduceBy > this.serviceTime)
 			throw new IllegalArgumentException();
 		this.remainingServiceTime -= reduceBy;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Process process2 = new Process();
+		process2.setArrivalTime(this.arrivalTime);
+		process2.setCompletionTime(this.completionTime);
+		process2.setName(this.name);
+		process2.setServiceTime(this.serviceTime);
+		process2.setRemainingServiceTime(this.remainingServiceTime);
+		return process2;
 	}
 }
 
