@@ -43,7 +43,7 @@ public class Processes {
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
 		System.out.print("Time\t");
-		for (int i = 0; i < MAX_COMPLETION_TIME; i++)
+		for (int i = 0; i <= MAX_COMPLETION_TIME; i++)
 			System.out.print(i + "\t");
 		System.out.println();
 		
@@ -129,7 +129,7 @@ public class Processes {
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
 		System.out.print("Time\t");
-		for (int i = 0; i < MAX_COMPLETION_TIME; i++)
+		for (int i = 0; i <= MAX_COMPLETION_TIME; i++)
 			System.out.print(i + "\t");
 		System.out.println();
 		
@@ -217,7 +217,7 @@ public class Processes {
 		// Display the gantt chart
 		System.out.println("Gantt Chart");
 		System.out.print("Time\t");
-		for (int i = 0; i < MAX_COMPLETION_TIME; i++)
+		for (int i = 0; i <= MAX_COMPLETION_TIME; i++)
 			System.out.print(i + "\t");
 		System.out.println();
 		
