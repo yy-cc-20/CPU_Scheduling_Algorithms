@@ -21,7 +21,7 @@ public class Main {
 	
 	private static final int MAX_COMPLETION_TIME = 21;
 	
-	private static final int QUANTUM_TIME = 4;
+	private static final int QUANTUM_TIME = 10;
 	
 	public static final int SCREEN_HEIGHT = 40;
 	public static final Scanner scanner = new Scanner(System.in);
@@ -41,17 +41,17 @@ public class Main {
 		Processes.displayProcesses(processes);
 		System.out.println("Press [ENTER] to continue.");
 		
-		//Processes.firstComeFirstServeStimulation(processes, processes.length, MAX_COMPLETION_TIME);		
-		//Processes.firstComeFirstServeSummary(processes, processes.length, MAX_COMPLETION_TIME);		
+		Processes.firstComeFirstServeStimulation(processes, processes.length, MAX_COMPLETION_TIME);		
+		Processes.firstComeFirstServeSummary(processes, processes.length, MAX_COMPLETION_TIME);		
 		//Main.clearScreen();
 		
-		//Processes.shortestProcessFirstStimulation(processes, processes.length, MAX_COMPLETION_TIME);
-		//Processes.shortestProcessFirstSummary(processes, processes.length, MAX_COMPLETION_TIME);
+		Processes.shortestProcessFirstStimulation(processes, processes.length, MAX_COMPLETION_TIME);
+		Processes.shortestProcessFirstSummary(processes, processes.length, MAX_COMPLETION_TIME);
 		//Main.clearScreen();
 		
 		Processes.roundRobbinStimulation(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
 		Processes.roundRobbinSummary(processes, processes.length, MAX_COMPLETION_TIME, QUANTUM_TIME);
-		Main.clearScreen();
+		//Main.clearScreen();
 		
 		scanner.close();
 	}

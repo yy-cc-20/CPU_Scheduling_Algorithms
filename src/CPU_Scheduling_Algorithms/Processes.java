@@ -48,10 +48,13 @@ public class Processes {
 		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 		
+		System.out.println("---------------------------");
+		System.out.println("First Come First Serve");
+		System.out.println("---------------------------");
 		for (int k = 0; k < MAX_COMPLETION_TIME; ++k) {
-			System.out.println("---------------------------");
-			System.out.println("First Come First Serve");
-			System.out.println("---------------------------");
+			//System.out.println("---------------------------");
+			//System.out.println("First Come First Serve");
+			//System.out.println("---------------------------");
 			
 			// Display the gantt chart
 			System.out.println("Gantt Chart");
@@ -125,7 +128,8 @@ public class Processes {
 			System.out.println();
 			System.out.println(processName + "(" + (processRemainingServiceTime) + ")");
 			displayQueueElementsWithRemainingServiceTime(readyQueue);
-			Main.clearScreen();
+			System.out.println();
+			//Main.clearScreen();
 		}
 	}
 	
@@ -223,11 +227,14 @@ public class Processes {
 		
 		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
-		
+
+		System.out.println("---------------------------");
+		System.out.println("Shortest Process First");
+		System.out.println("---------------------------");
 		for (int k = 0; k < MAX_COMPLETION_TIME; ++k) {
-			System.out.println("---------------------------");
-			System.out.println("Shortest Process First");
-			System.out.println("---------------------------");
+			//System.out.println("---------------------------");
+			//System.out.println("Shortest Process First");
+			//System.out.println("---------------------------");
 			
 			// Display the gantt chart
 			System.out.println("Gantt Chart");
@@ -305,7 +312,8 @@ public class Processes {
 			System.out.println();
 			System.out.println(processName + "(" + (processRemainingServiceTime) + ")");
 			displayQueueElementsWithRemainingServiceTime(readyQueue);
-			Main.clearScreen();
+			System.out.println();
+			//Main.clearScreen();
 		}
 	}
 	
@@ -400,10 +408,13 @@ public class Processes {
 		// 0. Rearrange the processes by arrival time
 		Arrays.sort(processes, new ArrivalTimeComparator()); // O(n log n)
 
+		System.out.println("---------------------------");
+		System.out.println("Round Robbin");
+		System.out.println("---------------------------");
 		for (int k = 0; k < MAX_COMPLETION_TIME; ++k) {
-			System.out.println("---------------------------");
-			System.out.println("Round Robbin");
-			System.out.println("---------------------------");
+			//System.out.println("---------------------------");
+			//System.out.println("Round Robbin");
+			//System.out.println("---------------------------");
 			
 			// Display the gantt chart
 			System.out.println("Gantt Chart");
@@ -495,13 +506,15 @@ public class Processes {
 			System.out.println(processName + "(" + (processRemainingServiceTime) + ")");
 			displayQueueElementsWithRemainingServiceTime(readyQueue);
 			System.out.println("Remaining quantum time: " + remainingQuantumTime);
-			Main.clearScreen();
+			System.out.println();
+			//Main.clearScreen();
 		}
 	}
 	
 	// Time complexity: O(n log n), space complexity: O(n)
-	// May need to wait for longer time to finish execution, when the interrupted process is put at the end of the queue 
-	// and need to wait for other processes to be executed (starvation)
+	// Round robbin has the longest average waiting time because 
+	// the interrupted process is put at the end of the ready queue 
+	// and need to wait for other processes to be executed
 	
 	public static void roundRobbinSummary(Process[] processes, int size, final int MAX_COMPLETION_TIME, final int QUANTUM_TIME) {
 		Queue<Process> readyQueue = new LinkedList<Process>(); // First-in-first-out queue
