@@ -21,7 +21,7 @@ public class Main {
 	
 	private static final int MAX_COMPLETION_TIME = 21;
 	
-	private static final int QUANTUM_TIME = 10;
+	private static final int QUANTUM_TIME = 4;
 	
 	public static final int SCREEN_HEIGHT = 40;
 	public static final Scanner scanner = new Scanner(System.in);
